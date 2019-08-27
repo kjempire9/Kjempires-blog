@@ -1,0 +1,21 @@
+body{
+  font-family: 'Lucida Casaul', 'Comic Sans MS'!important;
+  display: flex;
+  min-height: 100vh !important;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto !important;
+}
+@media (min-width: 768px) and (min-height: 500px) {
+  .page-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+}
+.page-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}

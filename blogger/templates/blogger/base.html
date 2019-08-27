@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- Compiled and minified CSS -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+          {% load static %}
+       <link rel="stylesheet" href="{% static 'style.css'%}">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <nav>
+        <div class="nav-wrapper grey">
+          <a href="#" class="brand-logo center">Screenshots254</a>
+          <a href="#" data-target="slide-out" class="sidenav-trigger">
+            <i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+              <li><a href="#">Home<i class="material-icons">home</i></a></li>
+              <li><a href="#">Memes<i class="material-icons">photo</i></a></li>
+              <li><a href="#">Music<i class="material-icons">album</i></a></li>
+              <li><a href="#">About<i class="material-icons">announcement</i></a></li>
+            </ul>
+        </div>
+      </nav>
+          <ul id="slide-out" class="sidenav ">
+            <li><a href="#"><i class="material-icons">home</i>Home</a></li>
+            <li><a href="#"><i class="material-icons">photo</i>Memes</a></li>
+            <li><a href="#"><i class="material-icons">album</i>Music</a></li>
+            <li><a href="#"><i class="material-icons">announcement</i>About</a></li>
+          </ul>
+          <div class="container">
+          </div>
+      <div class="container">
+        {% block content%}
+        {% endblock %}
+      </div>
+      <div class="container" style="align-items:center">
+        {% block pagination %}
+        {% endblock %}
+      </div>
+      <footer class="page-footer grey">
+        <div class="container">
+          <div class="row">
+            <div class="col s3">
+              <a class="waves-effect waves-light btn grey social-icon github" href="#">
+                <i class="fa fa-github"></i></a>
+            </div>
+            <div class="col s3">
+              <a class="waves-effect waves-light btn grey social facebook" href="#">
+                <i class="fa fa-facebook"></i> </a>
+            </div>
+            <div class="col s3">
+              <a class="waves-effect waves-light btn grey social instagram" href="#">
+                <i class="fa fa-instagram"></i></a>
+            </div>
+            <div class="col s3">
+              <a class="waves-effect waves-light btn grey social linkedin" href="#">
+                <i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+            © 2019 Screenshots254
+            <a class="grey-text text-lighten-4 right" href="#!">Created by ©KJEMPIRE </a>
+          </div>
+        </div>
+      </footer>
+      <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <!-- Compiled and minified JavaScript -->
+      <script src='{% static 'index.js'%}'></script>
+    </body>
+  </html>

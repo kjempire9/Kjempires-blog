@@ -1,0 +1,50 @@
+
+{% extends 'blogger/base.html'%}
+
+{% block content %}
+  <div class="row">
+    {% for p in posts%}
+    <div class="col s12 m12 l12">
+      <div class="card grey lighten-3">
+        <div class="card-content black-text">
+          <a class="card-title" href="#">{{p.title}}</a>
+          <small style="float:right">Author: {{ p.author }}</small><br>
+          <p>{{p.body}}</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Read more..</a>
+          <small style="float:right">{{ p.created }}</small>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}
+{% block pagination%}
+  <ul class="pagination">
+  {% if posts.has_previous %}
+    <li class="page-item">
+      <a href="?page={{ posts.previous_page_number }}" class="page-link">&laquo;</a>
+    </li>
+  {% endif %}
+
+  {% for p in page_range %}
+    {% if posts.number == p %}
+      <li class="wave-effect active grey darken-2">
+        <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+      </li>
+    {% else %}
+      <li class="wave-effect">
+        <a href="?page={{ p }}" class="page-link">{{ p }}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+
+  {% if posts.has_next %}
+    <li class="wave-effect">
+      <a href="?page={{ posts.next_page_number }}" class="page-link">&raquo;</a>
+    </li>
+  {% endif %}
+</ul>
+  {% endblock %}
