@@ -1,0 +1,47 @@
+<nav>
+  <div class="nav-wrapper grey">
+    <a href="{% url 'blogger:index' %}" class="brand-logo center" >Screenshots254</a>
+    <a href="#" data-target="slide-out" class="sidenav-trigger">
+      <i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="{% url 'blogger:index' %}">Home<i class="material-icons">home</i></a></li>
+        <li><a href="#">Memes<i class="material-icons">photo</i></a></li>
+        <li><a href="#">Music<i class="material-icons">album</i></a></li>
+        <li><a href="#">About<i class="material-icons">announcement</i></a></li>
+        {% if request.user.is_authenticated %}
+        <li ><a class="dropdown-trigger" href="#!" data-target="dropdown1"><span>Hi {{ request.user|capfirst }}</span><i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+      <!-- Dropdown Trigger -->
+
+  </div>
+</nav>      <!-- Dropdown Structure -->
+  <ul id="dropdown1" class="dropdown-content grey lighten-2">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span>Hi {{ request.user|capfirst }}</span>
+      </a>
+     </li>
+      <li><a class="dropdown-item" href="{% url 'blogger:edit_profile' %}">My Profile</a></li>
+      <li><a class="dropdown-item" href="{% url 'blogger:post_create' %}">Create Post</a></li>
+      <li><a class="dropdown-item" href="{% url 'blogger:user_logout' %}">Logout</a></li>
+    {% else %}
+    <li class="nav-item">
+      <a href="{% url 'blogger:user_login' %}" class="nav-link">Login</a>
+    </li>
+    {% endif %}
+  </ul>
+
+    <ul id="slide-out" class="sidenav ">
+      <li><a href="{% url 'blogger:index' %}"><i class="material-icons">home</i>Home</a></li>
+      <li><a href="#"><i class="material-icons">photo</i>Memes</a></li>
+      <li><a href="#"><i class="material-icons">album</i>Music</a></li>
+      <li><a href="#"><i class="material-icons">announcement</i>About</a></li>
+      <li><div class="divider"></div></li>
+      <li ><a class="subheader">Profile</a></li>
+      <li><a class="dropdown-item" href="{% url 'blogger:edit_profile' %}">My Profile</a></li>
+      <li><a class="dropdown-item" href="{% url 'blogger:post_create' %}">Create Post</a></li>
+      <li><a class="dropdown-item" href="{% url 'blogger:user_logout' %}">Logout</a></li>
+    </ul>
+    <div class="container">
+    </div>
+<div class="container">

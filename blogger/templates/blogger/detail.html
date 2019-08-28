@@ -1,0 +1,64 @@
+{% extends 'blogger/base.html' %}
+
+{% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+{% include 'blogger/alerts.html' %}
+
+
+  <h3>{{ post.title }}</h3>
+  <small>Post created by: {{ post.author }}</small>
+  <hr>
+  <p>{{ post.body }}</p>
+
+  <div class="row gallery">
+    {% for p in post.images_set.all %}
+    {% if p.image %}
+      <div class="col m3">
+        <img src="{{ p.image.url }}" alt="Image Not Found" class="img-thumbnail">
+      </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+<div id="like-section">
+  {% include 'blogger/like_section.html' %}
+</div>
+
+<div id="favourite-section">
+  {% if is_favourite %}
+  <a href="{% url 'blogger:favourite_post' id=post.id %}">
+    <i class="fas fa-heart fa-lg"></i>
+  </a>
+  {% else %}
+  <a href="{% url 'blogger:favourite_post' id=post.id %}">
+    <i class="far fa-heart fa-lg"></i>
+  </a>
+  {% endif %}
+</div>
+
+
+{% if post.author == request.user %}
+
+<div class="section-1" style="float:right;">
+
+  <a href="{% url 'blogger:post_edit' id=post.id %}">
+    <button type="button" class="waves-effect waves-light btn cyan">Edit</button>
+  </a>
+  <a href="{% url 'blogger:post_delete' id=post.id %}" id="delete">
+    <button type="button" class="waves-effect waves-light btn red">Delete</button>
+  </a>
+</div>
+{% endif %}
+
+
+<br><br>
+<hr>
+
+{% if not post.restrict_comment %}
+  <div class="main-comment-section">
+    {% include 'blogger/comments.html' %}
+  </div>
+{% endif %}
+
+{% endblock %}

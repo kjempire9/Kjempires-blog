@@ -2,7 +2,7 @@
 {% extends 'blogger/base.html'%}
 
 {% block content %}
-  <div class="row">
+  <div class="row" style='padding:10px'>
     {% for p in posts%}
     <div class="col s12 m12 l12">
       <div class="card grey lighten-3">
@@ -12,7 +12,7 @@
           <p>{{p.body}}</p>
         </div>
         <div class="card-action">
-          <a href="#">Read more..</a>
+        <a href="{% url 'blogger:detail' id=p.id slug=p.slug %}">Read more..</a>
           <small style="float:right">{{ p.created }}</small>
         </div>
       </div>
