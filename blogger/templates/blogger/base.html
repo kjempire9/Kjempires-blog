@@ -1,64 +1,98 @@
 <!DOCTYPE html>
-{% load staticfiles %}
-  <html>
-    <head>
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <!-- Compiled and minified CSS -->
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-          {% load static %}
-       <link rel="stylesheet" href="{% static 'style.css'%}">
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <title>{% block title%} screenshots254{% endblock %}</title>
-    </head>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Screenshots254{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    {% include 'blogger/navbar.html' %}
+    <div class="container-fluid">
+      {% block content %}
+      {% endblock %}
+    </div>
+    {% include 'blogger/footer.html' %}
 
-    <body>
-      {% include 'blogger/navbar.html' %}
-      
-        {% block content%}
-        {% endblock %}
-
-      </div>
-      <div class="container" style="align-items:center">
-        {% block pagination %}
-        {% endblock %}
-      </div>
-      <footer class="page-footer grey">
-        <div class="container">
-          <div class="row">
-            <div class="col s3">
-              <a class="waves-effect waves-light btn grey social-icon github" href="#">
-                <i class="fa fa-github"></i></a>
-            </div>
-            <div class="col s3">
-              <a class="waves-effect waves-light btn grey social facebook" href="#">
-                <i class="fa fa-facebook"></i> </a>
-            </div>
-            <div class="col s3">
-              <a class="waves-effect waves-light btn grey social instagram" href="#">
-                <i class="fa fa-instagram"></i></a>
-            </div>
-            <div class="col s3">
-              <a class="waves-effect waves-light btn grey social linkedin" href="#">
-                <i class="fa fa-linkedin"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="footer-copyright">
-          <div class="container">
-            © 2019 Screenshots254
-            <a class="grey-text text-lighten-4 right" href="#!">Created by ©KJEMPIRE </a>
-          </div>
-        </div>
-      </footer>
-      <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-      <!-- Compiled and minified JavaScript -->
-      <script src='{% static 'index.js'%}'></script>
-    </body>
-  </html>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(event){
+        $('#delete').click(function(){
+          return confirm("Are you sure to delete this post?");
+        });
+        $('.reply-btn').click(function() {
+          $(this).parent().parent().next('.replied-comments').fadeToggle()
+        });
+        $(function(){
+          setTimeout(function(){
+            $('.alert').slideUp(2000);
+          }, 5000);
+        });
+        $(document).on('click', '#like', function(event){
+          event.preventDefault();
+          var pk = $(this).attr('value');
+          $.ajax({
+            type: 'POST',
+            url: '{% url "like_post" %}',
+            data: {'id':pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            dataType: 'json',
+            success: function(response){
+              $('#like-section').html(response['form'])
+              console.log($('#like-section').html(response['form']));
+            },
+            error: function(rs, e){
+              console.log(rs.responseText);
+            },
+          });
+        });
+        $(document).on('submit', '.comment-form', function(event){
+          event.preventDefault();
+          console.log($(this).serialize());
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+              $('.main-comment-section').html(response['form']);
+              $('textarea').val('');
+              $('.reply-btn').click(function() {
+                $(this).parent().parent().next('.replied-comments').fadeToggle();
+                $('textarea').val('');
+              });
+            },
+            error: function(rs, e) {
+              console.log(rs.responseText);
+            },
+          });
+        });
+        $(document).on('submit', '.reply-form', function(event){
+          event.preventDefault();
+          console.log($(this).serialize());
+          $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+              $('.main-comment-section').html(response['form']);
+              $('textarea').val('');
+              $('.reply-btn').click(function() {
+                $(this).parent().parent().next('.replied-comments').fadeToggle();
+                $('textarea').val('');
+              });
+            },
+            error: function(rs, e) {
+              console.log(rs.responseText);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
