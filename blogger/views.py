@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from .models import Post, Profile, Images, Comment
 from datetime import datetime
 from django.urls import reverse
@@ -22,7 +25,7 @@ def index(request):
         Q(author__username=query)|
         Q(body__icontains=query)
         )
-    paginator = Paginator(post_list, 5)
+    paginator = Paginator(post_list, 10)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)

@@ -1,6 +1,8 @@
 from django import forms
 from .models import Post, Profile, Comment
 from django.contrib.auth.models import User
+from crispy_forms.helper import FormHelper
+from crispy_forms import layout, bootstrap
 
 class PostCreateForm(forms.ModelForm):
     class Meta:
@@ -24,8 +26,8 @@ class PostEditForm(forms.ModelForm):
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField(label="")
-    password = forms.CharField(label="", widget=forms.PasswordInput)
+    username = forms.CharField(label="Pen name")
+    password = forms.CharField(label="password", widget=forms.PasswordInput)
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -68,7 +70,7 @@ class ProfileEditForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(label="", widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Text goes here!!!', 'rows':'4', 'cols':'50'}))
+    content = forms.CharField(label="comment", widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Text goes here!!!', 'rows':'4', 'cols':'50'}))
     class Meta:
         model = Comment
         fields = ('content',)
