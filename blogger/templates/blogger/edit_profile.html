@@ -1,10 +1,27 @@
 {% extends 'blogger/base.html' %}
 {% block title %}Edit Profile | {{ block.super }}{% endblock %}
 {% block content %}
+<div class="card">
+<div class="row justify-content-center">
   <form action="." method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
     <input type="submit" value="Save Changes" class="btn btn-outline-success">
   </form>
+</div>
+</div>
+<style >
+  .card{
+    margin: 10rem;
+    padding: 2rem;
+  }
+  @media only screen and (max-width: 600px){
+    .card{
+        padding: 2rem;
+        margin: 2rem;
+
+    }
+  }
+</style>
 {% endblock %}

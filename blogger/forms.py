@@ -26,11 +26,15 @@ class PostEditForm(forms.ModelForm):
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField(label="Pen name")
-    password = forms.CharField(label="password", widget=forms.PasswordInput)
+    username = forms.CharField(label="UserName")
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
 
 
 class UserRegistrationForm(forms.ModelForm):
+    username = forms.CharField(label="UserName")
+    first_name = forms.CharField(label="First Name")
+    last_name = forms.CharField(label="Last Name")
+    email = forms.EmailField(label="Email")
     password = forms.CharField(widget = forms.PasswordInput(attrs = {'placeholder':'Enter Password Here...'}))
     confirm_password = forms.CharField(widget = forms.PasswordInput(attrs = {'placeholder':'Confirm Password...'}))
     class Meta:

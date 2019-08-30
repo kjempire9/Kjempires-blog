@@ -1,5 +1,7 @@
 {% extends 'blogger/base.html' %}
 {% block content %}
+<div class="card">
+  <div class="row justify-content-center">
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
@@ -9,4 +11,20 @@
     {% endfor %}
     <input type="submit" value="Create" class="btn btn-outline-success">
   </form>
+  </div>
+  </div>
+  <style>
+    .card{
+      padding: 4rem;
+      margin: 6rem;
+    }
+
+ @media only screen and (max-width: 600px){
+   .card{
+     padding: 2rem;
+     margin: 2rem;
+   }
+ }
+
+  </style>
 {% endblock %}
