@@ -1,5 +1,5 @@
-## ScreenshotsBlog
-# What is it about?
+# ScreenshotsBlog
+## What is it about?
 It is basically a literature blog where anyone can post their story for the world to enjoy.
 There are all kinds of features like:
  1. Favoriting stories.
